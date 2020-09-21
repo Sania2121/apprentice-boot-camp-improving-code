@@ -1,6 +1,7 @@
 import generator from 'random-seed'
 
-var Game = function () {
+var Game
+Game = function () {
   var players = new Array()
   var places = new Array(6)
   var purses = new Array(6)
@@ -74,32 +75,28 @@ var Game = function () {
     console.log(players[currentPlayer] + ' is the current player')
     console.log('They have rolled a ' + roll)
 
-    if (inPenaltyBox[currentPlayer]) {
-      if (roll % 2 != 0) {
-        isGettingOutOfPenaltyBox = true
-
-        console.log(players[currentPlayer] + ' is getting out of the penalty box')
-        places[currentPlayer] = places[currentPlayer] + roll
-        if (places[currentPlayer] > 11) {
-          places[currentPlayer] = places[currentPlayer] - 12
-        }
-
-        console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
-        console.log('The category is ' + currentCategory())
-        askQuestion()
-      } else {
-        console.log(players[currentPlayer] + ' is not getting out of the penalty box')
-        isGettingOutOfPenaltyBox = false
-      }
-    } else {
+    const playersTurn = () => {
       places[currentPlayer] = places[currentPlayer] + roll
       if (places[currentPlayer] > 11) {
         places[currentPlayer] = places[currentPlayer] - 12
       }
 
-      console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
+      console.log(players[currentPlayer] + '\'s new location is ' + places[currentPlayer])
       console.log('The category is ' + currentCategory())
       askQuestion()
+    }
+    if (inPenaltyBox[currentPlayer]) {
+      if (roll % 2 != 0) {
+        isGettingOutOfPenaltyBox = true
+
+        console.log(players[currentPlayer] + ' is getting out of the penalty box')
+        playersTurn()
+      } else {
+        console.log(players[currentPlayer] + ' is not getting out of the penalty box')
+        isGettingOutOfPenaltyBox = false
+      }
+    } else {
+      playersTurn()
     }
   }
 
@@ -109,7 +106,7 @@ var Game = function () {
         console.log('Answer was correct!!!!')
         purses[currentPlayer] += 1
         console.log(players[currentPlayer] + ' now has ' +
-            purses[currentPlayer] + ' Gold Coins.')
+          purses[currentPlayer] + ' Gold Coins.')
 
         var winner = didPlayerWin()
         currentPlayer += 1
@@ -126,7 +123,7 @@ var Game = function () {
 
       purses[currentPlayer] += 1
       console.log(players[currentPlayer] + ' now has ' +
-          purses[currentPlayer] + ' Gold Coins.')
+        purses[currentPlayer] + ' Gold Coins.')
 
       var winner = didPlayerWin()
 
