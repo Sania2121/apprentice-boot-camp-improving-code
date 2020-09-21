@@ -35,16 +35,17 @@ var Game = function () {
     return 'Rock Question ' + index
   }
 
-  for (var i = 0; i < 50; i++) {
-    popQuestions.push('Pop Question ' + i)
-    scienceQuestions.push('Science Question ' + i)
-    sportsQuestions.push('Sports Question ' + i)
-    rockQuestions.push(this.createRockQuestion(i))
+  for (var index = 0; index < 50; index++) {
+    popQuestions.push('Pop Question ' + index)
+    scienceQuestions.push('Science Question ' + index)
+    sportsQuestions.push('Sports Question ' + index)
+    rockQuestions.push(this.createRockQuestion(index))
   }
 
-  this.isPlayable = function (howManyPlayers) {
-    return howManyPlayers >= 2
-  }
+  // removed below as unused
+  // this.isPlayable = function (howManyPlayers) {
+  //   return howManyPlayers >= 2
+  // }
 
   this.add = function (playerName) {
     players.push(playerName)
