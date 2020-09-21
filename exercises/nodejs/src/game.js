@@ -99,38 +99,29 @@ Game = function () {
       playersTurn()
     }
   }
+  const answeredCorrectlyAndCanScore = () => {
+    console.log('Answer was correct!!!!')
+    purses[currentPlayer] += 1
+    console.log(players[currentPlayer] + ' now has ' +
+      purses[currentPlayer] + ' Gold Coins.')
 
+    var winner = didPlayerWin()
+    currentPlayer += 1
+    if (currentPlayer == players.length) { currentPlayer = 0 }
+
+    return winner
+  }
   this.wasCorrectlyAnswered = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
-        console.log('Answer was correct!!!!')
-        purses[currentPlayer] += 1
-        console.log(players[currentPlayer] + ' now has ' +
-          purses[currentPlayer] + ' Gold Coins.')
-
-        var winner = didPlayerWin()
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
-
-        return winner
+        return answeredCorrectlyAndCanScore()
       } else {
         currentPlayer += 1
         if (currentPlayer == players.length) { currentPlayer = 0 }
         return true
       }
     } else {
-      console.log('Answer was correct!!!!')
-
-      purses[currentPlayer] += 1
-      console.log(players[currentPlayer] + ' now has ' +
-        purses[currentPlayer] + ' Gold Coins.')
-
-      var winner = didPlayerWin()
-
-      currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0 }
-
-      return winner
+      return answeredCorrectlyAndCanScore()
     }
   }
 
